@@ -1,0 +1,145 @@
+@url = http://localhost:3000
+
+@rambaseUrl = https://api.rambase.net
+@clientId = xxx
+@clientSecret = xxx
+
+### std:test-connection
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:test-connection",
+  "input": {},
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}"
+    }
+}
+
+### std:account:list
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:account:list",
+  "input": {},
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}",
+        "includePermissions": false
+    }
+}
+
+### std:account:read
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:account:read",
+  "input": {
+    "identity": "993"
+  },
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}"
+    }
+}
+
+### std:entitlement:list
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:entitlement:list",
+  "input": {
+        "type": "group"
+    },
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}",
+        "includePermissions": false
+    }
+}
+
+### std:entitlement:read
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:entitlement:read",
+  "input": {
+        "identity": "100001"
+    },
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}",
+        "includePermissions": false
+    }
+}
+
+### std:account:disable
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:account:disable",
+  "input": {
+    "identity": "993",
+    "key": { "simple": { "id": "993" } }
+  },
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}"
+    }
+}
+
+### std:account:enable
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:account:enable",
+  "input": {
+    "identity": "993"
+  },
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}"
+    }
+}
+
+### std:account:update
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:account:update",
+  "input": {"changes":[{"attribute":"roles","op":"Add","value":["100142","100001"]}],"identity":"103","key":{"simple":{"id":"103"}}},
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}"
+    }
+}
+
+### std:account:create
+POST {{url}}
+Content-Type: application/json
+
+{
+  "type": "std:account:create",
+  "input": {"attributes":{"email":"instructorledlab+Aaron.Nichols@gmail.com","firstName":"Aaron","roles":"100014","username":"Aaron.Nichols"},"identity":null,"key":{"simple":{"id":null}}},
+  "config": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}",
+        "url": "{{rambaseUrl}}"
+    }
+}

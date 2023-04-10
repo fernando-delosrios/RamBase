@@ -1,0 +1,93 @@
+@url = https://api.rambase.net
+
+@clientId = xxx
+@clientSecret = xxx
+@pageKey = xxx
+
+### Authorise
+# @name auth
+POST {{url}}/oauth2/access_token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&client_id={{clientId}}
+&client_secret={{clientSecret}}
+
+### Settings
+# @name settings
+GET {{url}}/system/setting-definitions
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Users
+# @name users
+GET {{url}}/system/users?$expand=PagingDetails,Authentication&$pageKey={{pageKey}}&$select=name,firstName,status
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Roles
+# @name roles
+GET {{url}}/system/roles
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Role assignments
+# @name role_assignments
+GET {{url}}/system/roles/100023/user-assignments
+Authorization: Bearer {{auth.response.body.access_token}}
+
+
+### Role assignments for userId
+# @name role_assignments
+@userId = 13862
+GET {{url}}/system/roles/user-assignments?$filter=UserId eq {{userId}}&$expand=PagingDetails
+Authorization: Bearer {{auth.response.body.access_token}}
+Accept: application/json
+
+
+### Role assignments for roleId
+# @name role_assignments
+@roleId = 100149
+GET {{url}}/system/roles/{{roleId}}/user-assignments
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Role duty assignments
+# @name duty_assignments
+GET {{url}}/system/roles/102082/duties
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Duty permssion assignments
+# @name permission_assignments
+GET {{url}}/system/permissions
+Authorization: Bearer {{auth.response.body.access_token}}
+
+
+### Duty permssion assignments
+# @name permission_assignments
+POST {{url}}/system/roles/100149/user-assignments
+Authorization: Bearer {{auth.response.body.access_token}}
+
+{
+    "userAssignment": {
+        "comment": "Provisioned by IdentityNow",
+        "user": {
+            "userId": "10007"
+        }
+    }
+}
+
+### Create user
+# @name create_user
+POST {{url}}/system/users
+Authorization: Bearer {{auth.response.body.access_token}}
+
+{
+  "user": {
+    "firstName": "Fernando",
+    "name": "de los Ríos",
+    "authentication": {
+      "username": "fernando.delosrios",
+      "oneTimePassword": {
+        "mobilePhone": "+1111111111111",
+        "email": "alan.bradley@acme.com",
+      },
+    },
+  },
+}

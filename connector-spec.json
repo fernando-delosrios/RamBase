@@ -1,0 +1,205 @@
+{
+    "name": "RamBase 1.0",
+    "commands": [
+        "std:account:create",
+        "std:account:enable",
+        "std:account:disable",
+        "std:account:list",
+        "std:account:read",
+        "std:account:update",
+        "std:entitlement:list",
+        "std:entitlement:read",
+        "std:test-connection"
+    ],
+    "sourceConfig": [
+        {
+            "type": "section",
+            "items": [
+                {
+                    "key": "url",
+                    "label": "RamBase API URL",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "key": "clientId",
+                    "label": "Client ID",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "key": "clientSecret",
+                    "label": "Client Secret",
+                    "type": "secret",
+                    "required": true
+                },
+                {
+                    "key": "includePermissions",
+                    "label": "Include duty permissions in roles?",
+                    "type": "checkbox",
+                    "required": false
+                }
+            ]
+        }
+    ],
+    "accountSchema": {
+        "displayAttribute": "displayName",
+        "identityAttribute": "id",
+        "groupAttribute": "id",
+        "attributes": [
+            {
+                "name": "id",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "username",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "firstName",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "lastName",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "displayName",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "phone",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "email",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "status",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "roles",
+                "type": "string",
+                "description": "",
+                "entitlement": true,
+                "managed": true,
+                "multi": true
+            }
+        ]
+    },
+    "entitlementSchemas": [
+        {
+            "type": "group",
+            "identityAttribute": "id",
+            "displayAttribute": "name",
+            "attributes": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "description",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "status",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "duties",
+                    "type": "string",
+                    "description": "",
+                    "multi": true
+                },
+                {
+                    "name": "permissions",
+                    "type": "string",
+                    "description": "",
+                    "multi": true
+                }
+            ]
+        }
+    ],
+    "accountCreateTemplate": {
+        "fields": [
+            {
+                "key": "username",
+                "label": "username",
+                "type": "string",
+                "required": true,
+                "initialValue": {
+                    "type": "identityAttribute",
+                    "attributes": {
+                        "name": "uid"
+                    }
+                }
+            },
+            {
+                "key": "firstName",
+                "label": "firstName",
+                "type": "string",
+                "required": true,
+                "initialValue": {
+                    "type": "identityAttribute",
+                    "attributes": {
+                        "name": "firstname"
+                    }
+                }
+            },
+            {
+                "key": "lastName",
+                "label": "lastName",
+                "type": "string",
+                "required": true,
+                "initialValue": {
+                    "type": "identityAttribute",
+                    "attributes": {
+                        "name": "lastname"
+                    }
+                }
+            },
+            {
+                "key": "email",
+                "label": "email",
+                "type": "string",
+                "required": true,
+                "initialValue": {
+                    "type": "identityAttribute",
+                    "attributes": {
+                        "name": "email"
+                    }
+                }
+            },
+            {
+                "key": "phone",
+                "label": "phone",
+                "type": "string",
+                "required": true,
+                "initialValue": {
+                    "type": "identityAttribute",
+                    "attributes": {
+                        "name": "workPhone"
+                    }
+                }
+            }
+        ]
+    }
+}
